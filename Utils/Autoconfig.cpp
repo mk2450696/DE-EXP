@@ -125,6 +125,13 @@ void CheckDlssgState()
 		ctx.ngx.isHybridMfgForced = true;
 		LOG_INFO(L"[INIT] Forcing hybrid DLSSG MFG implementation");
 	}
+	
+	dwResult = GetPrivateProfileStringW(L"Debug", L"HighestArch", L"false", buffer, 255, lpFileName2);
+    value = std::wstring(buffer);
+    if (value == L"true") {
+        ctx.nvapi.isHighestArchEnabled = true;
+        LOG_INFO(L"[INIT] Forcing highest GPU architecture (DLSSG hardware unlock)");
+    }
 }
 
 bool BeforeDeadline()
@@ -1015,6 +1022,7 @@ void Autoconfig::CheckCommandLineParams()
 	if (CMD_EXISTS("--dlss-highest-arch")) {
 		ctx.currentGpuArchitecture = NV_GPU_ARCHITECTURE_AD100;
 		ctx.targetGpuArchitecture = NV_GPU_ARCHITECTURE_AD100;
+		ctx.nvapi.isHighestArchEnabled = true;
 	}
 
 	if (CMD_EXISTS("--dlss-hags=on")) {
