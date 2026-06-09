@@ -765,7 +765,7 @@ namespace NVAPI
 				if (ctx.realGpuArchitecture >= NV_GPU_ARCHITECTURE_AD100 || ctx.nvapi.isHighestArchEnabled) {
 					ctx.ngx.isDlssgSupportedByHardware = true;
 					ctx.ngx.isDlssgMultiframeSupported = ctx.realGpuArchitecture > NV_GPU_ARCHITECTURE_AD100;
-					if (ctx.realGpuArchitecture == NV_GPU_ARCHITECTURE_AD100 && !ctx.ngx.isDlssgDisabled) {
+					if ((ctx.realGpuArchitecture == NV_GPU_ARCHITECTURE_AD100 || ctx.nvapi.isHighestArchEnabled) && !ctx.ngx.isDlssgDisabled) {
 						ctx.ngx.isHybridMfgEnabled = true;
 					}
 
